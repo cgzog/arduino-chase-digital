@@ -47,6 +47,8 @@
 #define LED_ON          1
 #define LED_OFF         0
 
+#define NUM_OF_LEDS     (sizeof(leds) / sizeof(leds[0]))
+
 
 typedef struct  {
   int port;
@@ -68,7 +70,7 @@ void setup() {
 
 unsigned int i;
 
-  for (i = 0; i < sizeof(leds) / sizeof(leds[0]) ; i++) {
+  for (i = 0; i < NUM_OF_LEDS ; i++) {
 
     if (i < LED_OVERLAP) {
       leds[i].state = LED_ON;         // start with LED_OVERLAP # of LEDs on and the rest off
@@ -90,13 +92,13 @@ unsigned int i;
 
   while (1) {
 
-    for (i = 0; i < sizeof(leds) / sizeof(leds[0]) ; i++) {
+    for (i = 0; i < NUM_OF_LEDS ; i++) {
       digitalWrite(leds[i].port, leds[i].state);          // on or off according to active list
     }
 
     delay(LED_ON_TIME);                                   // just leave things alone for the ON time
 
-    incLeds(leds, sizeof(leds) / sizeof(leds[0]));        // "chase" to the next sequence of LEDS
+    incLeds(leds, NUM_OF_LEDS);        // "chase" to the next sequence of LEDS
   }
 }
 
